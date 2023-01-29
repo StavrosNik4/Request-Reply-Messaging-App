@@ -220,8 +220,10 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
             for (Account account: accountList) {
                 if(account.authToken == authToken){
                     indx = accountList.indexOf(account);
-                    accountList.get(indx).getMessageBox().removeIf(message -> message.id == messageId);
-                    return "OK"; // success message
+                    boolean tmp = accountList.get(indx).getMessageBox().removeIf(message -> message.id == messageId);
+                    if(tmp)
+                        return "OK"; // success message
+                    break;
                 }
             }
             return "Message does not exist"; // error message
