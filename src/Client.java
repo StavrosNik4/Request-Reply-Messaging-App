@@ -1,12 +1,12 @@
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class Client {
-    public static void main(String[] args) throws RemoteException {
-        Registry rmiRegistry = LocateRegistry.getRegistry(Integer.parseInt(args[1]));
+    public static void main(String[] args) {
         try {
+            // connect to the RMI registry
+            Registry rmiRegistry = LocateRegistry.getRegistry(Integer.parseInt(args[1]));
+            // get reference for remote object and use its add function
             Inter stub = (Inter) rmiRegistry.lookup("rrma");
             if (Integer.parseInt(args[2]) == 1)
                 System.out.println(stub.createAccount(args[3]));
@@ -20,8 +20,8 @@ public class Client {
                 System.out.println(stub.readMessage(Integer.parseInt(args[3]), Integer.parseInt(args[4])));
             if (Integer.parseInt(args[2]) == 6)
                 System.out.println(stub.deleteMessage(Integer.parseInt(args[3]), Integer.parseInt(args[4])));
-        } catch (NotBoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }
