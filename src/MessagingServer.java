@@ -56,7 +56,7 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
 
     /**
      * Method to check if there is a token in the server.
-     * @param token must be a authToken.
+     * @param token must be an authToken.
      * @return true/false.
      */
     public static boolean checkAuth(int token){
@@ -98,7 +98,7 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
 
     /**
      * Show all usernames of the server.
-     * @param authToken must a user's authToken for authentication.
+     * @param authToken must be a user's authToken for authentication.
      * @return a string to show to the user. It can be a list of usernames or an error message.
      * @throws RemoteException exception handling.
      */
@@ -120,7 +120,7 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
 
     /**
      * Method to send message to a user.
-     * @param authToken must a user's authToken for authentication.
+     * @param authToken must be a user's authToken for authentication.
      * @param recipient must be a string of the username of the recipient.
      * @param messageBody must be a string of the message content.
      * @return a string to show to the user. It can be a success or an error message.
@@ -145,6 +145,12 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
             return "Invalid Auth Token"; // error message
     }
 
+    /**
+     * Shows the mailbox of a user.
+     * @param authToken must be a user's authToken for authentication.
+     * @return a string to show to the user. It can be a list of the user's mailbox or an error message.
+     * @throws RemoteException exception handling.
+     */
     @Override
     public String showInbox(int authToken) throws RemoteException {
 
@@ -165,9 +171,16 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
             return tmp.toString();
         }
         else
-            return "Invalid Auth Token";
+            return "Invalid Auth Token"; // error message
     }
 
+    /**
+     * Reads a user's message.
+     * @param authToken must be a user's authToken for authentication.
+     * @param messageId must be a message id.
+     * @return a string with the sender and the content of the message.
+     * @throws RemoteException exception handling.
+     */
     @Override
     public String readMessage(int authToken, int messageId) throws RemoteException {
         if (checkAuth(authToken)){
@@ -186,13 +199,20 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
                     return tmp.toString();
                 }
             }
-            return "Message ID does not exist";
+            return "Message ID does not exist"; // error message
 
         }
         else
-            return "Invalid Auth Token";
+            return "Invalid Auth Token"; // error message
     }
 
+    /**
+     * Deletes a message.
+     * @param authToken must be a user's authToken for authentication.
+     * @param messageId must be a message id.
+     * @return a string to show to the user. It can be a success or an error message.
+     * @throws RemoteException exception handling.
+     */
     @Override
     public String deleteMessage(int authToken, int messageId) throws RemoteException {
         if (checkAuth(authToken)){
@@ -201,12 +221,12 @@ public class MessagingServer extends UnicastRemoteObject implements Inter{
                 if(account.authToken == authToken){
                     indx = accountList.indexOf(account);
                     accountList.get(indx).getMessageBox().removeIf(message -> message.id == messageId);
-                    return "OK";
+                    return "OK"; // success message
                 }
             }
-            return "Message does not exist";
+            return "Message does not exist"; // error message
         }
         else
-            return "Invalid Auth Token";
+            return "Invalid Auth Token"; // error message
     }
 }

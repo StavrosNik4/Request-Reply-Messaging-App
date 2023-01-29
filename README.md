@@ -11,13 +11,13 @@
 για να αλλάξουμε την κατάσταση ενός μηνύματος σε διαβασμένο.
 
 ### Account
-Η κλάση του λογαργιασμού. Πέρα από τις απαιτήσεις, έχει προστεθεί ο getter ``getMessageBox()``
+Η κλάση του λογαριασμού. Πέρα από τις απαιτήσεις, έχει προστεθεί ο getter ``getMessageBox()``
 για εύκολη πρόσβαση στο mailbox του χρήστη.
 
 <ins>Σημείωση:</ins> Οι κλάσεις **Message** και **Account** κάνουν implement το interface `java.io.Serializable`.
 Απαραίτητη προϋπόθεση για την χρήση τους στην υλοποίηση της εφαρμογής καθώς αποτελούν τα serializable objects.
 ### Inter
-Το inteface της εφαρμογής. Κάνει extend το interface Remote ώστε η υλοποίηση
+Το interface της εφαρμογής. Κάνει extend το interface Remote ώστε η υλοποίηση
 της εφαρμογής (Βλέπε παρακάτω **MessagingServer**) να είναι remote αντικείμενο.
 
 ### MessagingServer
